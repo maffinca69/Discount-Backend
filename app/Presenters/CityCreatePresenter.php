@@ -15,6 +15,7 @@ class CityCreatePresenter implements PresenterInterface
         /** @var City $model */
         return [
             'name' => $model->name,
+            'id' => $model->id,
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at,
         ];
