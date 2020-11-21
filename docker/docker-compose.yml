@@ -1,0 +1,33 @@
+version: '3'
+services:
+  fpm_discount:
+    build: ./fpm
+    tty: true
+    working_dir: /var/www/discount
+    volumes:
+      - ../.:/var/www/discount:cached
+      - ./fpm/config/php.ini-local:/usr/local/etc/php/php.ini:ro
+
+  nginx_discount:
+    image: nginx:stable-alpine
+    working_dir: /var/www/discount
+    ports:
+      - "80:80"
+    volumes:
+      - ../.:/var/www/discount:cached
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:delegated
+
+  mysql_discount:
+    image: mysql:8.0
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_DATABASE=discount
+      - MYSQL_USER=discount
+      - MYSQL_PASSWORD=secret
+    ports:
+      - "3306:3306"
+
+volumes:
+  mysql_data:
