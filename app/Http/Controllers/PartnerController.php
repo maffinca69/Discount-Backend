@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\Partners\PartnerCreateRequest;
+use App\Http\Requests\Partners\PartnerDeleteRequest;
 use App\Http\Requests\Partners\PartnerUpdateRequest;
 use App\Models\Partner;
 use App\Presenters\PartnerGetListPresenter;
@@ -49,5 +50,17 @@ class PartnerController extends Controller
         $partner = $service->handle($request);
 
         return response()->json(PartnerGetListPresenter::present($partner), Response::HTTP_OK);
+    }
+
+    /**
+     * @param PartnerDeleteRequest $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function delete(PartnerDeleteRequest $request)
+    {
+        Partner::query()->find($request->get('id'))->delete();
+
+        return response()->json(['status' => true], Response::HTTP_OK);
     }
 }
