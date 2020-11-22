@@ -15,8 +15,8 @@ class CityTest extends TestCase
      */
     public function testGetList()
     {
-        $response = $this->get('/');
-        dd($response->getStatus(), $response);
+        $response = $this->call(Request::METHOD_GET,'/');
+        dd($response->getStatusCode(), $response);
         $response->assertResponseOk();
     }
 
