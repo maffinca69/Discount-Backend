@@ -9,18 +9,20 @@ use App\Http\Requests\Cities\CityDeleteRequest;
 use App\Http\Requests\Cities\CityUpdateRequest;
 use App\Models\City;
 use App\Presenters\CityPresenter;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
 
 class CityController extends Controller
 {
     /**
-     * @return LengthAwarePaginator
+     * @return JsonResponse
      */
     public function index()
     {
-        // TODO: сделать кастомную пагинацию для МП
-        return City::query()->paginate(self::PAGINATE_SIZE);
+        $models = City::query()->paginate(self::PAGINATE_SIZE)->getCollection()->transform(function($model) {
+            return CityPresenter::present($model);
+        });
+
+        return response()->json($models);
     }
 
     /**
