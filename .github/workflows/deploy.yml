@@ -5,6 +5,12 @@ on:
     branches: [ master, deploy ]
 
 jobs:
+  unit-tests:
+    name: PHPUnit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: nathanheffley/laravel-phpunit-action@master
   build:
     name: Deploy code to prod
     runs-on: ubuntu-latest
