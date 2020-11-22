@@ -30,6 +30,14 @@ $api->version('v1', function (Router $api) {
                 $api->delete('/delete', 'CityController@delete');
             });
 
+            // Партнеры
+            $api->group(['prefix' => 'partners'], function () use ($api) {
+                $api->get('/', 'PartnerController@index');
+                $api->post('/create', 'PartnerController@create');
+                $api->put('/update', 'PartnerController@update');
+                $api->delete('/delete', 'PartnerController@delete');
+            });
+
         });
     });
 });

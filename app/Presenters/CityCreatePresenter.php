@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 class CityCreatePresenter implements PresenterInterface
 {
 
-    public static function present(Model $model)
+    public static function present(Model $model): array
     {
         /** @var City $model */
         return [

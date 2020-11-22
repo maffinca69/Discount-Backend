@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 
 interface PresenterInterface
 {
-    public static function present(Model $model);
+    public static function present(Model $model): array;
 }
