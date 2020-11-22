@@ -17,7 +17,7 @@ jobs:
         run: |
           mkdir -p database
           touch database/database.sqlite
-          php artisan migrate
+          php artisan migrate --force
       - name: Execute tests (Unit and Feature tests) via PHPUnit
         run: vendor/bin/phpunit
   build:
