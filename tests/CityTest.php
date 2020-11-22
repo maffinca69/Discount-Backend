@@ -15,7 +15,7 @@ class CityTest extends TestCase
      */
     public function testGetList()
     {
-        $response = $this->call(Request::METHOD_GET,'/');
+        $response = $this->call(Request::METHOD_GET,'/api/cities');
         dd($response->getStatusCode(), $response);
         $response->assertResponseOk();
     }
