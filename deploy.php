@@ -11,7 +11,6 @@ set('repository', 'git@github.com:maffinca69/Discount-Backend.git');
 
 // [Optional] Allocate tty for git clone. Default value is false.
 set('git_tty', false);
-set('ssh_multiplexing', false);
 
 // Shared files/dirs between deploys
 add('shared_files', []);
@@ -25,7 +24,6 @@ add('writable_dirs', []);
 
 host('193.109.78.189')
     ->user('deployer')
-    ->identityFile('~/.ssh/deployerkey')
     ->set('deploy_path', '/var/www/{{application}}');
 
 // Tasks
