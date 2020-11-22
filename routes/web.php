@@ -38,6 +38,14 @@ $api->version('v1', function (Router $api) {
                 $api->delete('/delete', 'PartnerController@delete');
             });
 
+            // Категории
+            $api->group(['prefix' => 'categories'], function () use ($api) {
+                $api->get('/', 'CategoryController@index');
+                $api->post('/create', 'CategoryController@create');
+                $api->put('/update', 'CategoryController@update');
+                $api->delete('/delete', 'CategoryController@delete');
+            });
+
         });
     });
 });
