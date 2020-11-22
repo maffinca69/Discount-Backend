@@ -11,11 +11,11 @@ use App\Models\Partner;
 use Dingo\Api\Http\FormRequest;
 use Illuminate\Database\Eloquent\Model;
 
-class PartnerCreateService
+class PartnerUpdateService
 {
     public function handle(FormRequest $request): Model
     {
-        $cities = City::query()->find($request->get('cities'));
+        $cities = City::query()->find($request->get('cities', []));
         $categories = Category::query()->find($request->get('categories', []));
         $addresses = $request->get('addresses', []);
         $addressesModels = [];
@@ -26,9 +26,17 @@ class PartnerCreateService
             array_push($addressesModels, $addressModels);
         }
 
-        $partner = Partner::query()->create($request->all());
+        $partner = Partner::query()->find($request->get('id', 0));
+        $partner->update($request->all());
+
+        // Save relations
+        $partner->cities()->detach();
         $partner->cities()->saveMany($cities);
+
+        $partner->addresses()->detach();
         $partner->addresses()->saveMany($addressesModels);
+
+        $partner->categories()->detach();
         $partner->categories()->saveMany($categories);
 
         return $partner;

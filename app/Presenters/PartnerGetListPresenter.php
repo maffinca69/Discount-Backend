@@ -22,12 +22,15 @@ class PartnerGetListPresenter implements PresenterInterface
             'min_discount' => $model->min_discount,
             'max_discount' => $model->max_discount,
 
-            'cities' => $model->cities,
+            'cities' => $model->cities->map(function ($city) {
+                return CityCreatePresenter::present($city);
+            }),
+
             'addresses' => $model->addresses,
             'categories' => $model->categories,
 
-            'created_at' => $model->created_at->format('d.m.y H:mm'),
-            'updated_at' => $model->updated_at->format('d.m.y H:mm'),
+            'created_at' => $model->created_at->format('d.m.y H:m'),
+            'updated_at' => $model->updated_at->format('d.m.y H:m'),
         ];
     }
 }

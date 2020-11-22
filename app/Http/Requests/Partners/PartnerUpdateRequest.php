@@ -6,7 +6,7 @@ namespace App\Http\Requests\Partners;
 
 use App\Http\Requests\BaseRequest;
 
-class PartnerCreateRequest extends BaseRequest
+class PartnerUpdateRequest extends BaseRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,12 +26,13 @@ class PartnerCreateRequest extends BaseRequest
     public function rules()
     {
         return [
+            'id' => 'required|exists:partners,id',
             'name' => 'required',
             'logo_url' => 'nullable|max:255',
             'description' => 'nullable|max:255',
             'info' => 'nullable|max:255',
-            'min_discount' => 'required|min:0|max:100',
-            'max_discount' => 'required|min:0|max:100',
+            'min_discount' => 'min:0|max:100',
+            'max_discount' => 'min:0|max:100',
 
             'addresses.*.street' => 'required|max:255',
             'addresses.*.house' => 'required|max:255',
@@ -42,6 +43,8 @@ class PartnerCreateRequest extends BaseRequest
     public function messages()
     {
         return [
+            'id.exists' => 'Партнер не найден',
+
             '*.required' => ':attribute обязательное поле',
             '*.max' => 'Максимум :max символов',
             '*.min' => 'Минимум :min символов',

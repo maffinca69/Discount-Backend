@@ -16,8 +16,8 @@ class CityCreatePresenter implements PresenterInterface
         return [
             'name' => $model->name,
             'id' => $model->id,
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at,
+            'created_at' => $model->created_at->format('d.m.Y H:m'),
+            'updated_at' => $model->updated_at->format('d.m.Y H:m'),
         ];
     }
 }

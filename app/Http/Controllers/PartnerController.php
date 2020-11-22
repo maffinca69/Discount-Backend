@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 
 
 use App\Http\Requests\Partners\PartnerCreateRequest;
+use App\Http\Requests\Partners\PartnerUpdateRequest;
 use App\Models\Partner;
 use App\Presenters\PartnerGetListPresenter;
 use App\Services\PartnerCreateService;
+use App\Services\PartnerUpdateService;
 use Dingo\Api\Http\Response;
 use Illuminate\Http\JsonResponse;
 
@@ -35,5 +37,17 @@ class PartnerController extends Controller
         $partner = $service->handle($request);
 
         return response()->json(PartnerGetListPresenter::present($partner), Response::HTTP_CREATED);
+    }
+
+    /**
+     * @param PartnerUpdateRequest $request
+     * @return JsonResponse
+     */
+    public function update(PartnerUpdateRequest $request)
+    {
+        $service = new PartnerUpdateService();
+        $partner = $service->handle($request);
+
+        return response()->json(PartnerGetListPresenter::present($partner), Response::HTTP_OK);
     }
 }
