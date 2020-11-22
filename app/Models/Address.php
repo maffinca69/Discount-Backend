@@ -30,4 +30,9 @@ class Address extends Model
     protected $guarded = [
         'id'
     ];
+
+    public function setContactPhoneAttribute($value)
+    {
+        $this->attributes['contact_phone'] = $value ? removeMask($value) : $value;
+    }
 }
