@@ -16,7 +16,6 @@ class CityTest extends TestCase
     public function testGetList()
     {
         $response = $this->get('/public/api/cities');
-        dd($response->currentUri);
 
         $response->assertResponseOk();
     }
