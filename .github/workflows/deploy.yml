@@ -21,3 +21,5 @@ jobs:
             cd ${{ secrets.PROJECT_PATH }}
             git pull origin master
             composer install
+            composer du -o
+            php artisan migrate
