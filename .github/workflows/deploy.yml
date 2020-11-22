@@ -17,4 +17,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_PROD_KEY }}
-          script: whoami
+          script: |
+            cd ${{ secrets.PROJECT_PATH }}
+            git pull origin master
+            composer install
