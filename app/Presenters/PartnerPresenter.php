@@ -7,7 +7,7 @@ namespace App\Presenters;
 use App\Models\Partner;
 use Illuminate\Database\Eloquent\Model;
 
-class PartnerGetListPresenter implements PresenterInterface
+class PartnerPresenter implements PresenterInterface
 {
 
     public static function present(Model $model): array
@@ -23,7 +23,7 @@ class PartnerGetListPresenter implements PresenterInterface
             'max_discount' => $model->max_discount,
 
             'cities' => $model->cities->map(function ($city) {
-                return CityCreatePresenter::present($city);
+                return CityPresenter::present($city);
             }),
 
             'addresses' => $model->addresses,

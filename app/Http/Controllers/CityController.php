@@ -8,7 +8,7 @@ use App\Http\Requests\Cities\CityCreateRequest;
 use App\Http\Requests\Cities\CityDeleteRequest;
 use App\Http\Requests\Cities\CityUpdateRequest;
 use App\Models\City;
-use App\Presenters\CityCreatePresenter;
+use App\Presenters\CityPresenter;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
 
@@ -30,7 +30,7 @@ class CityController extends Controller
     public function create(CityCreateRequest $request): JsonResponse
     {
         if ($city = City::query()->create($request->all())) {
-            return response()->json(CityCreatePresenter::present($city), 201);
+            return response()->json(CityPresenter::present($city), 201);
         }
 
         return response()->json(['status' => false], 500);

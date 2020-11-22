@@ -8,7 +8,7 @@ use App\Http\Requests\Partners\PartnerCreateRequest;
 use App\Http\Requests\Partners\PartnerDeleteRequest;
 use App\Http\Requests\Partners\PartnerUpdateRequest;
 use App\Models\Partner;
-use App\Presenters\PartnerGetListPresenter;
+use App\Presenters\PartnerPresenter;
 use App\Services\PartnerCreateService;
 use App\Services\PartnerUpdateService;
 use Dingo\Api\Http\Response;
@@ -22,7 +22,7 @@ class PartnerController extends Controller
     public function index()
     {
         $models = Partner::query()->paginate(self::PAGINATE_SIZE)->getCollection()->transform(function($model) {
-            return PartnerGetListPresenter::present($model);
+            return PartnerPresenter::present($model);
         });
 
         return response()->json($models);
@@ -37,7 +37,7 @@ class PartnerController extends Controller
         $service = new PartnerCreateService();
         $partner = $service->handle($request);
 
-        return response()->json(PartnerGetListPresenter::present($partner), Response::HTTP_CREATED);
+        return response()->json(PartnerPresenter::present($partner), Response::HTTP_CREATED);
     }
 
     /**
@@ -49,7 +49,7 @@ class PartnerController extends Controller
         $service = new PartnerUpdateService();
         $partner = $service->handle($request);
 
-        return response()->json(PartnerGetListPresenter::present($partner), Response::HTTP_OK);
+        return response()->json(PartnerPresenter::present($partner), Response::HTTP_OK);
     }
 
     /**

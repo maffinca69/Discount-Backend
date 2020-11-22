@@ -9,7 +9,7 @@ use App\Http\Requests\Categories\CategoryDeleteRequest;
 use App\Http\Requests\Categories\CategoryUpdateRequest;
 use App\Http\Requests\Cities\CityDeleteRequest;
 use App\Models\Category;
-use App\Presenters\CategoryGetListPresenter;
+use App\Presenters\CategoryPresenter;
 use Dingo\Api\Http\Response;
 use Illuminate\Http\JsonResponse;
 
@@ -18,7 +18,7 @@ class CategoryController extends Controller
     public function index()
     {
         $models = Category::query()->paginate(self::PAGINATE_SIZE)->getCollection()->transform(function($model) {
-            return CategoryGetListPresenter::present($model);
+            return CategoryPresenter::present($model);
         });
 
         return response()->json($models);
@@ -32,7 +32,7 @@ class CategoryController extends Controller
     {
         $category = Category::query()->create($request->all());
 
-        return response()->json(CategoryGetListPresenter::present($category), Response::HTTP_CREATED);
+        return response()->json(CategoryPresenter::present($category), Response::HTTP_CREATED);
     }
 
     /**

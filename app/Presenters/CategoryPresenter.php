@@ -4,18 +4,19 @@
 namespace App\Presenters;
 
 
-use App\Models\City;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Model;
 
-class CityCreatePresenter implements PresenterInterface
+class CategoryPresenter implements PresenterInterface
 {
 
     public static function present(Model $model): array
     {
-        /** @var City $model */
+        /** @var Category $model */
         return [
-            'name' => $model->name,
             'id' => $model->id,
+            'name' => $model->name,
+            'icon' => $model->icon,
             'created_at' => $model->created_at->format('d.m.Y H:m'),
             'updated_at' => $model->updated_at->format('d.m.Y H:m'),
         ];
