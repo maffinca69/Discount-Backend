@@ -5,12 +5,21 @@ on:
     branches: [ master, deploy ]
 
 jobs:
-  unit-tests:
-    name: PHPUnit
+  lumen-tests:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - uses: nathanheffley/laravel-phpunit-action@master
+      - name: Copy ENV Laravel Configuration for CI
+        run: php -r "file_exists('.env') || copy('.env.ci', '.env');"
+      - name: Install Dependencies (PHP vendors)
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
+      - name: Create DB and schemas
+        run: |
+          mkdir -p database
+          touch database/database.sqlite
+          php artisan migrate
+      - name: Execute tests (Unit and Feature tests) via PHPUnit
+        run: vendor/bin/phpunit
   build:
     name: Deploy code to prod
     runs-on: ubuntu-latest
