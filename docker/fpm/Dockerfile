@@ -5,4 +5,8 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && php -r "unlink('composer-setup.php');" \
     && mv /usr/bin/composer.phar /usr/bin/composer \
     && docker-php-ext-configure pdo_mysql \
-    && docker-php-ext-install pdo_mysql
+    && docker-php-ext-install pdo_mysql \
+    && docker-php-ext-install opcache
+
+COPY docker/php/conf.d/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
+COPY docker/php/conf.d/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
