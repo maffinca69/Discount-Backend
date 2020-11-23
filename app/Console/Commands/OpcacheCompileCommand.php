@@ -39,6 +39,8 @@ class OpcacheCompileCommand extends Command
     {
         if (function_exists('opcache_compile_file')) {
 
+            $this->line('Find files...');
+
             $files = collect(
                 Finder::create()->in(config('opcache.directories'))
                     ->name('*.php')
@@ -48,7 +50,6 @@ class OpcacheCompileCommand extends Command
                     ->files()
                     ->followLinks()
             );
-
             $progressBar = $this->output->createProgressBar(count($files));
 
             // optimized files
