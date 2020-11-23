@@ -40,5 +40,4 @@ jobs:
             composer install
             composer du -o
             php artisan migrate
-            php artisan opcache:clear
             php artisan opcache:compile
