@@ -41,3 +41,4 @@ jobs:
             composer du -o
             php artisan migrate
             php artisan opcache:compile
+            ${{ secrets.PHP_RESTART_COMMAND }}
