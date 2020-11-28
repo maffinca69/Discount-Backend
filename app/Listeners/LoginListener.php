@@ -1,12 +1,13 @@
 <?php
 
+
 namespace App\Listeners;
 
-use App\Events\ExampleEvent;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
-class ExampleListener
+use App\Events\UserLogin;
+use Carbon\Carbon;
+
+class LoginListener
 {
     /**
      * Create the event listener.
@@ -21,11 +22,11 @@ class ExampleListener
     /**
      * Handle the event.
      *
-     * @param  \App\Events\ExampleEvent  $event
+     * @param UserLogin $event
      * @return void
      */
-    public function handle(ExampleEvent $event)
+    public function handle(UserLogin $event)
     {
-        //
+        $event->user->update(['last_seen_at' => Carbon::now()]);
     }
 }

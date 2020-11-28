@@ -8,5 +8,3 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install opcache
 
-COPY docker/php/conf.d/opcache.ini /usr/local/etc/php/conf.d/opcache.ini
-COPY docker/php/conf.d/opcache.ini /usr/local/etc/php/conf.d/opcache.ini

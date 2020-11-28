@@ -46,6 +46,13 @@ $api->version('v1', function (Router $api) {
                 $api->delete('/delete', 'CategoryController@delete');
             });
 
+            // Авторизация
+            $api->post('/login', 'AuthController@login');
+            $api->post('/register', 'AuthController@register');
+            $api->post('/logout', 'AuthController@logout');
+            $api->post('/refresh', 'AuthController@refresh');
+            $api->post('/me', 'AuthController@me');
         });
+        $api->post('/confirm/{token}', 'AuthController@confirm');
     });
 });
