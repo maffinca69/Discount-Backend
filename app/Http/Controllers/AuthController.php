@@ -23,20 +23,15 @@ class AuthController extends Controller
     {
         /** @var User $user */
         if ($user = User::query()->create($request->all())) {
-            event(new UserRegister($user));
+            return response()->json($user);
         }
 
-        return response()->json($user);
+        return response()->json(['success' => false]);
     }
 
     public function login(LoginRequest $request)
     {
         $user = User::query()->findByEmail($request->get('email'))->first();
-
-        /** @var User $user */
-        if (!$user->isConfirmed()) {
-            return response()->json(['status' => false, 'message' => 'Email не подтвержден'], Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
 
         $credentials = $request->only(['email', 'password']);
         if (!$token = auth()->attempt($credentials)) {
