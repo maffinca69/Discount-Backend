@@ -19,6 +19,7 @@ class PartnerPresenter implements PresenterInterface
             'name' => $model->name,
             'info' => $model->info,
             'description' => $model->description,
+            'logo' => $model->logo_url,
 
             'min_discount' => $model->min_discount,
             'max_discount' => $model->max_discount,
